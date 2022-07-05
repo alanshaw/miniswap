@@ -1,0 +1,23 @@
+{
+  "name": "miniswap",
+  "version": "0.0.0",
+  "description": "Miniture Bitswap implementation, remote read only.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bitswap",
+    "minibus"
+  ],
+  "author": "Alan Shaw",
+  "license": "Apache-2.0 OR MIT",
+  "dependencies": {
+    "it-length-prefixed": "^7.0.1",
+    "it-pipe": "^2.0.3",
+    "streaming-iterables": "^7.0.4"
+  },
+  "devDependencies": {
+    "@libp2p/interfaces": "^2.0.4"
+  }
+}
