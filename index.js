@@ -11,11 +11,9 @@ export const BITSWAP_PROTOCOL = '/ipfs/bitswap/1.2.0'
 
 export class Miniswap {
   /**
-   * @param {import('@libp2p/interfaces/peer-id').PeerId} peerId
    * @param {{ get (cid: CID): Promise<Block|undefined>, has (cid: CID): Promise<boolean> }} blockstore
    */
-  constructor (peerId, blockstore) {
-    this._peerId = peerId
+  constructor (blockstore) {
     this._blockstore = blockstore
     this._handler = this._handler.bind(this)
   }

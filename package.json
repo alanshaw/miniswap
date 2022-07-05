@@ -1,14 +1,14 @@
 {
   "name": "miniswap",
   "version": "0.0.0",
-  "description": "Miniture Bitswap implementation, remote read only.",
+  "description": "Miniature Bitswap implementation, remote read only.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "bitswap",
-    "minibus"
+    "ipfs"
   ],
   "author": "Alan Shaw",
   "license": "Apache-2.0 OR MIT",
