@@ -33,5 +33,14 @@
     "ipfs-bitswap": "^11.0.4",
     "libp2p": "^0.37.3",
     "uint8arrays": "^3.0.0"
-  }
+  },
+  "types": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alanshaw/miniswap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alanshaw/miniswap/issues"
+  },
+  "homepage": "https://github.com/alanshaw/miniswap#readme"
 }
