@@ -3,8 +3,12 @@
   "version": "0.0.0",
   "description": "Miniature Bitswap implementation, remote read only.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gen": "npm run gen:proto && npm run gen:proto-types",
+    "gen:proto": "pbjs -t static-module -w es6 -r miniswap --force-number --no-verify --no-delimited --no-create --no-beautify --no-defaults --lint eslint-disable -o gen/message.js message.proto",
+    "gen:proto-types": "pbts -o gen/message.d.ts gen/message.js"
   },
   "keywords": [
     "bitswap",
@@ -15,6 +19,7 @@
   "dependencies": {
     "it-length-prefixed": "^7.0.1",
     "it-pipe": "^2.0.3",
+    "protobufjs": "^6.11.3",
     "streaming-iterables": "^7.0.4"
   },
   "devDependencies": {
