@@ -7,9 +7,7 @@ export const BITSWAP_PROTOCOL = '/ipfs/bitswap/1.2.0'
 export const PROCESS_WANTLIST_CONCURRENCY = 10
 
 export class Miniswap {
-  /**
-   * @param {import('./index.d').Blockstore} blockstore
-   */
+  /** @param {import('./index.d').Blockstore} blockstore */
   constructor (blockstore) {
     if (!blockstore) throw new Error('missing blockstore parameter')
     this._blockstore = blockstore
@@ -27,7 +25,7 @@ export class Miniswap {
         inStream,
         lp.decode(),
         async source => {
-          for await (const data of source) {
+          for await (const data of source) { // TODO: concurrency?
             const message = Message.decode(data)
             const { stream: outStream } = await connection.newStream(BITSWAP_PROTOCOL)
             const bs = this._blockstore
