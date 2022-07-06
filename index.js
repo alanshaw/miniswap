@@ -4,7 +4,7 @@ import { transform } from 'streaming-iterables'
 import { Message, WantType, Block, BlockPresence, BlockPresenceType } from './message.js'
 
 export const BITSWAP_PROTOCOL = '/ipfs/bitswap/1.2.0'
-export const PROCESS_WANTLIST_CONCURRENCY = 5
+export const PROCESS_WANTLIST_CONCURRENCY = 10
 
 export class Miniswap {
   /**
@@ -50,7 +50,7 @@ export class Miniswap {
  */
 function processWantlist (blockstore, wantlist) {
   return pipe(
-    wantlist.entries.filter(e => !e.cancel),
+    wantlist.entries.filter(entry => !entry.cancel),
     transform(PROCESS_WANTLIST_CONCURRENCY, async entry => {
       if (entry.wantType === WantType.Block) {
         const raw = await blockstore.get(entry.cid)
