@@ -102,10 +102,10 @@ export class Wantlist {
    * @param {gen.Message.Wantlist} raw
    */
   static fromRaw (raw) {
-    return new Wantlist(
-      raw.entries.map(e => Entry.fromRaw(e)),
-      raw.full
-    )
+    return new Wantlist({
+      entries: raw.entries.map(e => Entry.fromRaw(e)),
+      full: raw.full
+    })
   }
 
   serialize (protocol) {

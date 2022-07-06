@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ava --verbose",
     "gen": "npm run gen:proto && npm run gen:proto-types",
     "gen:proto": "pbjs -t static-module -w es6 -r miniswap --force-number --no-verify --no-delimited --no-create --no-beautify --no-defaults --lint eslint-disable -o gen/message.js message.proto",
     "gen:proto-types": "pbts -o gen/message.d.ts gen/message.js"
@@ -19,10 +19,19 @@
   "dependencies": {
     "it-length-prefixed": "^7.0.1",
     "it-pipe": "^2.0.3",
+    "multiformats": "^9.7.0",
     "protobufjs": "^6.11.3",
     "streaming-iterables": "^7.0.4"
   },
   "devDependencies": {
-    "@libp2p/interfaces": "^2.0.4"
+    "@chainsafe/libp2p-noise": "^7.0.1",
+    "@libp2p/interfaces": "^2.0.4",
+    "@libp2p/mplex": "^1.2.1",
+    "@libp2p/websockets": "^3.0.0",
+    "ava": "^4.3.0",
+    "blockstore-core": "^1.0.5",
+    "ipfs-bitswap": "^11.0.4",
+    "libp2p": "^0.37.3",
+    "uint8arrays": "^3.0.0"
   }
 }

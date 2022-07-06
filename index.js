@@ -29,7 +29,7 @@ export class Miniswap {
             const message = Message.decode(data)
             const { stream: outStream } = await connection.newStream(BITSWAP_PROTOCOL)
             const bs = this._blockstore
-            await pipe(processWantlist(bs, message), lp.encode(), outStream)
+            await pipe(processWantlist(bs, message.wantlist), lp.encode(), outStream)
           }
         }
       )
