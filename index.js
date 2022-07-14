@@ -1,10 +1,11 @@
 import { pipe } from 'it-pipe'
 import * as lp from 'it-length-prefixed'
-import { transform } from 'streaming-iterables'
+import { transform, consume } from 'streaming-iterables'
 import { Message, WantType, Block, BlockPresence, BlockPresenceType } from './message.js'
 
 export const BITSWAP_PROTOCOL = '/ipfs/bitswap/1.2.0'
-export const PROCESS_WANTLIST_CONCURRENCY = 10
+const PROCESS_MESSAGE_CONCURRENCY = 10
+const PROCESS_WANTLIST_CONCURRENCY = 10
 
 export class Miniswap {
   /** @param {import('./index.d').Blockstore} blockstore */
@@ -24,14 +25,13 @@ export class Miniswap {
       await pipe(
         inStream,
         lp.decode(),
-        async source => {
-          for await (const data of source) { // TODO: concurrency?
-            const message = Message.decode(data)
-            const { stream: outStream } = await connection.newStream(BITSWAP_PROTOCOL)
-            const bs = this._blockstore
-            await pipe(processWantlist(bs, message.wantlist), lp.encode(), outStream)
-          }
-        }
+        transform(PROCESS_MESSAGE_CONCURRENCY, async data => {
+          const message = Message.decode(data)
+          const { stream: outStream } = await connection.newStream(BITSWAP_PROTOCOL)
+          const bs = this._blockstore
+          await pipe(processWantlist(bs, message.wantlist), lp.encode(), outStream)
+        }),
+        consume
       )
     } catch (err) {
       console.error(`${connection.remotePeer}: stream error`, err)
