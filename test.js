@@ -1,22 +1,23 @@
 import test from 'ava'
 import { createLibp2p } from 'libp2p'
-import { WebSockets } from '@libp2p/websockets'
-import { Noise } from '@chainsafe/libp2p-noise'
-import { Mplex } from '@libp2p/mplex'
+import { webSockets } from '@libp2p/websockets'
+import { noise } from '@chainsafe/libp2p-noise'
+import { mplex } from '@libp2p/mplex'
 import { createBitswap } from 'ipfs-bitswap'
 import { MemoryBlockstore } from 'blockstore-core/memory'
 import { fromString, toString } from 'uint8arrays'
 import * as raw from 'multiformats/codecs/raw'
 import { sha256 } from 'multiformats/hashes/sha2'
 import { CID } from 'multiformats/cid'
+import { multiaddr } from '@multiformats/multiaddr'
 import { Miniswap, BITSWAP_PROTOCOL } from './index.js'
 
 test('should bitswap a single CID', async t => {
   const clientBlockstore = new MemoryBlockstore()
   const client = await createLibp2p({
-    transports: [new WebSockets()],
-    streamMuxers: [new Mplex()],
-    connectionEncryption: [new Noise()]
+    transports: [webSockets()],
+    streamMuxers: [mplex()],
+    connectionEncryption: [noise()]
   })
 
   const bitswap = createBitswap(client, clientBlockstore)
@@ -33,9 +34,9 @@ test('should bitswap a single CID', async t => {
   const serverAddr = '/ip4/127.0.0.1/tcp/1337/ws'
   const server = await createLibp2p({
     addresses: { listen: [serverAddr] },
-    transports: [new WebSockets()],
-    streamMuxers: [new Mplex()],
-    connectionEncryption: [new Noise()]
+    transports: [webSockets()],
+    streamMuxers: [mplex()],
+    connectionEncryption: [noise()]
   })
 
   const miniswap = new Miniswap(serverBlockstore)
@@ -45,7 +46,7 @@ test('should bitswap a single CID', async t => {
   await server.start()
 
   console.log(`dialing ${serverAddr}/p2p/${server.peerId}`)
-  await client.dial(`${serverAddr}/p2p/${server.peerId}`)
+  await client.dial(multiaddr(`${serverAddr}/p2p/${server.peerId}`))
 
   console.log('starting bitswap')
   bitswap.start()

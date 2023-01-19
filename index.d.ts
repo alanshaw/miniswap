@@ -1,9 +1,9 @@
-import { CID } from 'multiformats/cid'
-import { StreamHandler } from '@libp2p/interfaces/registrar'
+import { UnknownLink } from 'multiformats/Link'
+import { StreamHandler } from '@libp2p/interface-registrar'
 
 export interface Blockstore {
-  get (cid: CID): Promise<Uint8Array|undefined>
-  has (cid: CID): Promise<boolean>
+  get (cid: UnknownLink): Promise<Uint8Array|undefined>
+  has (cid: UnknownLink): Promise<boolean>
 }
 
 export declare class Miniswap {

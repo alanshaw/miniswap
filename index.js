@@ -19,15 +19,15 @@ export class Miniswap {
     return this._handler
   }
 
-  /** @type {import('@libp2p/interfaces/registrar').StreamHandler} */
+  /** @type {import('@libp2p/interface-registrar').StreamHandler} */
   async _handler ({ connection, stream: inStream }) {
     try {
       await pipe(
         inStream,
         lp.decode(),
         transform(PROCESS_MESSAGE_CONCURRENCY, async data => {
-          const message = Message.decode(data)
-          const { stream: outStream } = await connection.newStream(BITSWAP_PROTOCOL)
+          const message = Message.decode(data.subarray())
+          const outStream = await connection.newStream(BITSWAP_PROTOCOL)
           const bs = this._blockstore
           await pipe(processWantlist(bs, message.wantlist), lp.encode(), outStream)
           outStream.close()
@@ -79,7 +79,7 @@ function processWantlist (blockstore, wantlist) {
           }
         }
       }
-      if (message.blocks.length || message.blocksPresences.length) {
+      if (message.blocks.length || message.blockPresences.length) {
         yield message.encode()
       }
     }

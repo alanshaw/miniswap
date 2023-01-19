@@ -17,22 +17,24 @@
   "author": "Alan Shaw",
   "license": "Apache-2.0 OR MIT",
   "dependencies": {
-    "it-length-prefixed": "^7.0.1",
+    "@libp2p/interface-registrar": "^2.0.8",
+    "it-length-prefixed": "^8.0.4",
     "it-pipe": "^2.0.3",
-    "multiformats": "^9.7.0",
-    "protobufjs": "^6.11.3",
+    "multiformats": "^11.0.1",
+    "protobufjs": "^7.1.2",
     "streaming-iterables": "^7.0.4"
   },
   "devDependencies": {
-    "@chainsafe/libp2p-noise": "^7.0.1",
-    "@libp2p/interfaces": "^2.0.4",
-    "@libp2p/mplex": "^1.2.1",
-    "@libp2p/websockets": "^3.0.0",
-    "ava": "^4.3.0",
-    "blockstore-core": "^1.0.5",
-    "ipfs-bitswap": "^11.0.4",
-    "libp2p": "^0.37.3",
-    "uint8arrays": "^3.0.0"
+    "@chainsafe/libp2p-noise": "^11.0.0",
+    "@libp2p/interfaces": "^3.3.1",
+    "@libp2p/mplex": "^7.1.1",
+    "@libp2p/websockets": "^5.0.3",
+    "@multiformats/multiaddr": "^11.3.0",
+    "ava": "^5.1.1",
+    "blockstore-core": "^3.0.0",
+    "ipfs-bitswap": "^15.0.0",
+    "libp2p": "^0.42.2",
+    "uint8arrays": "^4.0.3"
   },
   "types": "./index.d.ts",
   "repository": {

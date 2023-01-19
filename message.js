@@ -108,15 +108,15 @@ export class Wantlist {
     })
   }
 
-  serialize (protocol) {
+  serialize () {
     return {
-      entries: this.entries.map(e => e.serialize(protocol)),
+      entries: this.entries.map(e => e.serialize()),
       full: this.full
     }
   }
 
-  encode (protocol) {
-    return gen.Message.Wantlist.encode(this.serialize(protocol)).finish()
+  encode () {
+    return gen.Message.Wantlist.encode(this.serialize()).finish()
   }
 }
 
