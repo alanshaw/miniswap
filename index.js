@@ -34,6 +34,7 @@ export class Miniswap {
         }),
         consume
       )
+      inStream.close()
     } catch (err) {
       console.error(`${connection.remotePeer}: stream error`, err)
     }
