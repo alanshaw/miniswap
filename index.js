@@ -1,7 +1,7 @@
 import { pipe } from 'it-pipe'
 import * as lp from 'it-length-prefixed'
 import { transform, consume } from 'streaming-iterables'
-import { Message, WantType, Block, BlockPresence, BlockPresenceType } from './message.js'
+import { Message, WantType, Block, BlockPresence, BlockPresenceType, Entry } from './message.js'
 
 export const BITSWAP_PROTOCOL = '/ipfs/bitswap/1.2.0'
 const PROCESS_MESSAGE_CONCURRENCY = 10
@@ -24,12 +24,12 @@ export class Miniswap {
     try {
       await pipe(
         inStream,
-        lp.decode(),
+        lp.decode,
         transform(PROCESS_MESSAGE_CONCURRENCY, async data => {
           const message = Message.decode(data.subarray())
           const outStream = await connection.newStream(BITSWAP_PROTOCOL)
           const bs = this._blockstore
-          await pipe(processWantlist(bs, message.wantlist), lp.encode(), outStream)
+          await pipe(processWantlist(bs, message.wantlist), lp.encode, outStream)
           outStream.close()
         }),
         consume
@@ -51,7 +51,7 @@ export class Miniswap {
 function processWantlist (blockstore, wantlist) {
   return pipe(
     wantlist.entries.filter(entry => !entry.cancel),
-    transform(PROCESS_WANTLIST_CONCURRENCY, async entry => {
+    transform(PROCESS_WANTLIST_CONCURRENCY, async (/** @type {Entry} */ entry) => {
       if (entry.wantType === WantType.Block) {
         const raw = await blockstore.get(entry.cid)
         if (raw) {

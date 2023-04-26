@@ -1,5 +1,6 @@
 import { CID } from 'multiformats/cid'
 import * as gen from './gen/message.js'
+import { encode as encodePrefix } from './prefix.js'
 
 const MAX_PRIORITY = Math.pow(2, 31) - 1
 const MAX_MESSAGE_SIZE = 4 * 1024 * 1024 // 4 MB
@@ -127,12 +128,7 @@ export class Block {
    */
   constructor (prefixOrCid, data) {
     if (prefixOrCid instanceof CID) {
-      prefixOrCid = new Uint8Array([
-        prefixOrCid.version,
-        prefixOrCid.code,
-        prefixOrCid.multihash.bytes[0],
-        prefixOrCid.multihash.bytes[1]
-      ])
+      prefixOrCid = encodePrefix(prefixOrCid)
     }
 
     this.prefix = prefixOrCid
