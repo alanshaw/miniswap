@@ -18,23 +18,24 @@
   "license": "Apache-2.0 OR MIT",
   "dependencies": {
     "@libp2p/interface-registrar": "^2.0.8",
-    "it-length-prefixed": "^8.0.4",
-    "it-pipe": "^2.0.3",
+    "it-length-prefixed": "^9.0.1",
+    "it-pipe": "^3.0.1",
     "multiformats": "^11.0.1",
     "protobufjs": "^7.1.2",
-    "streaming-iterables": "^7.0.4"
+    "streaming-iterables": "^7.0.4",
+    "varint": "^6.0.0"
   },
   "devDependencies": {
     "@chainsafe/libp2p-noise": "^11.0.0",
     "@libp2p/interfaces": "^3.3.1",
-    "@libp2p/mplex": "^7.1.1",
-    "@libp2p/websockets": "^5.0.3",
-    "@multiformats/multiaddr": "^11.3.0",
+    "@libp2p/mplex": "^8.0.1",
+    "@libp2p/websockets": "^6.0.1",
+    "@multiformats/blake2": "^1.0.13",
+    "@multiformats/multiaddr": "^12.1.2",
     "ava": "^5.1.1",
-    "blockstore-core": "^3.0.0",
-    "ipfs-bitswap": "^15.0.0",
-    "libp2p": "^0.42.2",
-    "uint8arrays": "^4.0.3"
+    "blockstore-core": "^4.1.0",
+    "ipfs-bitswap": "^17.0.2",
+    "libp2p": "^0.44.0"
   },
   "types": "./index.d.ts",
   "repository": {
