@@ -1,4 +1,4 @@
-import { UnknownLink } from 'multiformats/Link'
+import { UnknownLink } from 'multiformats/link'
 import { StreamHandler } from '@libp2p/interface-registrar'
 
 export interface Blockstore {
