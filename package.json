@@ -1,6 +1,6 @@
 {
   "name": "miniswap",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Miniature Bitswap implementation, remote read only.",
   "main": "index.js",
   "type": "module",
