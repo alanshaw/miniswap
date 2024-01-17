@@ -20,9 +20,9 @@
     "@libp2p/interface-registrar": "^2.0.8",
     "it-length-prefixed": "^9.0.1",
     "it-pipe": "^3.0.1",
-    "multiformats": "^11.0.1",
+    "multiformats": "^13.0.1",
     "protobufjs": "^7.1.2",
-    "streaming-iterables": "^7.0.4",
+    "streaming-iterables": "^8.0.1",
     "varint": "^6.0.0"
   },
   "devDependencies": {
