@@ -1,5 +1,5 @@
 import { UnknownLink } from 'multiformats/link'
-import { StreamHandler } from '@libp2p/interface-registrar'
+import { StreamHandler } from '@libp2p/interface'
 
 export interface Blockstore {
   get (cid: UnknownLink): Promise<Uint8Array|undefined>

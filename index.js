@@ -19,7 +19,7 @@ export class Miniswap {
     return this._handler
   }
 
-  /** @type {import('@libp2p/interface-registrar').StreamHandler} */
+  /** @type {import('@libp2p/interface').StreamHandler} */
   async _handler ({ connection, stream: inStream }) {
     try {
       await pipe(

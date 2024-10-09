@@ -2,7 +2,7 @@ import test from 'ava'
 import { createLibp2p } from 'libp2p'
 import { webSockets } from '@libp2p/websockets'
 import { noise } from '@chainsafe/libp2p-noise'
-import { mplex } from '@libp2p/mplex'
+import { yamux } from '@chainsafe/libp2p-yamux'
 import { createBitswap } from 'ipfs-bitswap'
 import { MemoryBlockstore } from 'blockstore-core/memory'
 import { fromString, toString } from 'multiformats/bytes'
@@ -17,8 +17,8 @@ test('should bitswap a single CID', async t => {
   const clientBlockstore = new MemoryBlockstore()
   const client = await createLibp2p({
     transports: [webSockets()],
-    streamMuxers: [mplex()],
-    connectionEncryption: [noise()]
+    streamMuxers: [yamux()],
+    connectionEncrypters: [noise()]
   })
 
   const bitswap = createBitswap(client, clientBlockstore)
@@ -36,8 +36,8 @@ test('should bitswap a single CID', async t => {
   const server = await createLibp2p({
     addresses: { listen: [serverAddr] },
     transports: [webSockets()],
-    streamMuxers: [mplex()],
-    connectionEncryption: [noise()]
+    streamMuxers: [yamux()],
+    connectionEncrypters: [noise()]
   })
 
   const miniswap = new Miniswap(serverBlockstore)
@@ -56,14 +56,16 @@ test('should bitswap a single CID', async t => {
   const retrievedData = await bitswap.want(cid)
 
   t.is(toString(retrievedData), toString(data))
+  
+  await Promise.all([client.stop(), server.stop()])
 })
 
 test('should bitswap a CID that uses blake2b', async t => {
   const clientBlockstore = new MemoryBlockstore()
   const client = await createLibp2p({
     transports: [webSockets()],
-    streamMuxers: [mplex()],
-    connectionEncryption: [noise()]
+    streamMuxers: [yamux()],
+    connectionEncrypters: [noise()]
   })
 
   const bitswap = createBitswap(client, clientBlockstore, {
@@ -83,8 +85,8 @@ test('should bitswap a CID that uses blake2b', async t => {
   const server = await createLibp2p({
     addresses: { listen: [serverAddr] },
     transports: [webSockets()],
-    streamMuxers: [mplex()],
-    connectionEncryption: [noise()]
+    streamMuxers: [yamux()],
+    connectionEncrypters: [noise()]
   })
 
   const miniswap = new Miniswap(serverBlockstore)
@@ -103,4 +105,6 @@ test('should bitswap a CID that uses blake2b', async t => {
   const retrievedData = await bitswap.want(cid)
 
   t.is(toString(retrievedData), toString(data))
+
+  await Promise.all([client.stop(), server.stop()])
 })
