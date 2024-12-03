@@ -30,11 +30,11 @@ export class Miniswap {
           const outStream = await connection.newStream(BITSWAP_PROTOCOL)
           const bs = this._blockstore
           await pipe(processWantlist(bs, message.wantlist), lp.encode, outStream)
-          outStream.close()
+          await outStream.close()
         }),
         consume
       )
-      inStream.close()
+      await inStream.close()
     } catch (err) {
       console.error(`${connection.remotePeer}: stream error`, err)
     }
